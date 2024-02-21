@@ -20,7 +20,14 @@ const HomeScreen = () => {
       <h1>Latest Product</h1>
       <Row>
         {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+          <Col
+            sm={12}
+            md={6}
+            lg={4}
+            xl={3}
+            key={product._id}
+            className="d-flex align-items-stretch"
+          >
             <Product product={product} />
           </Col>
         ))}
