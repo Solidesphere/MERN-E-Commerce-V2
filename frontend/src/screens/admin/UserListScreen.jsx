@@ -13,14 +13,15 @@ const UserListScreen = () => {
   const { data: users, isLoading, error, refetch } = useGetUsersQuery();
   const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     if (window.confirm("are you sure ?")) {
-      deleteUser(id)
-        .then(() => {
-          toast.success("user deleted");
-          refetch();
-        })
-        .catch((err) => toast.error(err?.data?.message || err.message));
+      try {
+        deleteUser(id);
+        toast.success("user deleted");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
   };
 
