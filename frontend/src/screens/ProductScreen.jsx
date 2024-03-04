@@ -20,7 +20,7 @@ import {
   useCreateReviewMutation,
 } from "../slices/productsApiSlice";
 import { addToCart } from "../slices/cartSlice";
-
+import Meta from "../components/Meta";
 const ProductScreen = () => {
   const { id: productId } = useParams();
 
@@ -74,6 +74,7 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
+          <Meta title={product.name} description={product.description} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />
