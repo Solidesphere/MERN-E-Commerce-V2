@@ -1,11 +1,16 @@
 import { Row, Col } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 
 const HomeScreen = () => {
-  const { data: products, isError, isLoading, error } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, isError, isLoading, error } = useGetProductsQuery({
+    pageNumber,
+  });
 
   if (isLoading) return <Loader />;
   if (isError)
@@ -19,7 +24,7 @@ const HomeScreen = () => {
     <>
       <h1>Latest Product</h1>
       <Row>
-        {products.map((product) => (
+        {data.products.map((product) => (
           <Col
             sm={12}
             md={6}
@@ -32,6 +37,7 @@ const HomeScreen = () => {
           </Col>
         ))}
       </Row>
+      <Paginate pages={data.pages} page={data.page} />
     </>
   );
 };
